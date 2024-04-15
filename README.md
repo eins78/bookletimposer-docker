@@ -31,11 +31,17 @@ pdf2booklet --output booklet-a5-imposed.pdf testdata/booklet-a5.pdf
 
 ## development
 
-build and publish the image:
+build the image locally:
 
 ```sh
 docker build -t eins78/bookletimposer .
-docker push eins78/bookletimposer 
+```
+
+build and publish the image:
+
+```sh
+docker buildx create --use
+docker buildx build --push --platform linux/amd64,linux/arm64 -t eins78/bookletimposer . 
 # see https://hub.docker.com/r/eins78/bookletimposer
 ```
 
