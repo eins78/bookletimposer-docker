@@ -28,6 +28,15 @@ It should match the file `testdata/reference-output/booklet-a5-imposed.pdf` in t
 
 For more options see the official [BookletImposer documentation](https://kjo.herbesfolles.org/bookletimposer/bookletimposer.1.html).
 
+You can also set an alias in your shell to make it easier to use:
+
+```sh
+alias pdf2booklet='docker run --rm -v "$(pwd):/data" -w /data -u $(id -u):$(id -g) eins78/bookletimposer --no-gui --booklet'
+
+pdf2booklet testdata/booklet-a5.pdf # creates testdata/booklet-a5-conv.pdf
+pdf2booklet --output booklet-a5-imposed.pdf testdata/booklet-a5.pdf 
+```
+
 ## docker-compose
 
 debug contents of container:
