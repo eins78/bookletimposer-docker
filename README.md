@@ -9,6 +9,11 @@ It consists of three parts:
 - [`bookletimposer-docker`](./bookletimposer-docker): docker image that contains `pdfimposer`
 - [`qdf-docker`](./qdf-docker): docker image that contains `qpdf`
 
+## Installation
+
+- Install some `docker` distribution, e.g. [Docker Desktop](https://www.docker.com/products/docker-desktop/)
+- `curl -fsSL https://github.com/eins78/pdf2zine/raw/refs/heads/main/pdf2zine > ~/bin/pdf2zine && chmod +x ~/bin/pdf2zine`
+
 ## License
 
 The contents of this repository are in the Public Domain.
