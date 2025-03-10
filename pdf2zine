@@ -1,0 +1,39 @@
+#!/bin/bash
+set -eu
+
+if ! which qpdf > /dev/null; then
+    echo "Error: qpdf is not installed, installing with homebrew"
+    brew install qpdf
+fi
+
+# Check if input file exists
+if [ ! -f "$1" ]; then
+    echo "Error: Input file '$1' does not exist."
+    exit 1
+fi
+
+# Create temporary directory in a more accessible location
+TMPDIR="$(mktemp -d)"
+echo "Using temporary directory: $TMPDIR"
+
+INPUT_DIR="$(realpath "$(dirname "$1")")"
+FILENAME="$(basename "$1" .pdf)"
+OUTPUT_FILE="${INPUT_DIR}/${FILENAME}_booklet.pdf"
+INPUT_FILE="input.pdf"
+
+cp "$1" "${TMPDIR}/${INPUT_FILE}"
+cd "$TMPDIR"
+
+NPAGES=$(qpdf --show-npages "$INPUT_FILE")
+echo "Number of pages: $NPAGES"
+echo "Running qpdf command to move cover page to the end..."
+qpdf "$INPUT_FILE" --pages "$INPUT_FILE" 2-z "$INPUT_FILE" 1 -- "cover_moved.pdf"
+
+echo "making booklet"
+docker run --rm -v "${TMPDIR}:/data" -w /data -u "$(id -u):$(id -g)" eins78/bookletimposer --no-gui --booklet "cover_moved.pdf" --output="booklet.pdf"
+
+mv "booklet.pdf" "${OUTPUT_FILE}"
+echo "Done! Booklet created at: ${OUTPUT_FILE}"
+
+rm -rf "$TMPDIR"
+
