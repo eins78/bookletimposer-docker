@@ -1,18 +1,14 @@
 #!/bin/bash
 set -eu
 
-if ! which qpdf > /dev/null; then
-    echo "Error: qpdf is not installed, installing with homebrew"
-    brew install qpdf
-fi
-
 # Check if input file exists
 if [ ! -f "$1" ]; then
     echo "Error: Input file '$1' does not exist."
     exit 1
 fi
 
-# Create temporary directory in a more accessible location
+alias qpdf='docker run --rm -v "$(pwd):/data" -w /data -u "$(id -u):$(id -g)" eins78/qpdf'
+
 TMPDIR="$(mktemp -d)"
 echo "Using temporary directory: $TMPDIR"
 
