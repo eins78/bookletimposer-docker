@@ -1,5 +1,7 @@
 # `bookletimposer` docker image
 
+Dockerhub: <https://hub.docker.com/r/eins78/bookletimposer>
+
 [BookletImposer / pdfimposer](https://kjo.herbesfolles.org/bookletimposer/) is a simple tool to impose PDF files for booklet printing.
 
 This docker image wraps it in a container so it can be used on more systems.
@@ -42,7 +44,6 @@ build and publish the image:
 ```sh
 docker buildx create --use
 docker buildx build --push --platform linux/amd64,linux/arm64 -t eins78/bookletimposer . 
-# see https://hub.docker.com/r/eins78/bookletimposer
 ```
 
 debug contents of container:

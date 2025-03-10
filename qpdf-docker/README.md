@@ -2,6 +2,8 @@
 
 `qpdf` docs: <https://qpdf.readthedocs.io/en/stable/index.html>
 
+Dockerhub: <https://hub.docker.com/r/eins78/qpdf>
+
 ## development
 
 build the image locally:
@@ -14,8 +16,7 @@ build and publish the image:
 
 ```sh
 docker buildx create --use
-docker buildx build --push --platform linux/amd64,linux/arm64 -t eins78/qpdf . 
-# see https://hub.docker.com/r/eins78/qpdf
+docker buildx build --push --platform linux/amd64,linux/arm64 -t eins78/qpdf .
 ```
 
 debug contents of container:
